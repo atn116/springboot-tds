@@ -1,0 +1,40 @@
+{{ > header}}
+
+	
+	
+	
+	<table class="ui fluid large single-line table">
+		<thead>
+		<div class="ui search">
+  <div class="ui icon input">
+    <input class="prompt" placeholder="Rechercher un script..." type="text">
+    <i class="search icon"></i>
+  </div>
+  <div class="results"></div>
+</div>
+		<tr>
+			<th>Nom</th>
+			<th>Description</th>
+			<th>Date de création</th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+	
+		<tbody>
+			{{#activeUser.scripts}}
+				<tr>
+					<td>{{title}}</td>
+					<td>{{description}}</td>
+					<td>{{creationDate}}</td>
+					<td><a href="http://localhost:8080/script/{{id}}">Modifier</a></td>
+					<td><a onclick="return confirm('Voulez-vous vraiment supprimer ce script ?');" href="http://localhost:8080/script/{{id}}/delete">Supprimer</a></td>
+				</tr>
+			{{/activeUser.scripts}}
+		</tbody>
+	</table>
+	
+	<a href="http://localhost:8080/script/new" style="font-weight:bold ;">Ajouter un script</a>
+	<a href="http://localhost:8080/logout" style="padding-left:900px ;font-weight:bold ;color:red">Se déconnecter</a>
+
+{{ > footer}}

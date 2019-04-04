@@ -1,0 +1,4 @@
+2019-03-26 23:08:32 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUSER" non trouvée
+Table "SUSER" not found; SQL statement:
+SELECT * FROM SUSER CRIPT [42102-197]
