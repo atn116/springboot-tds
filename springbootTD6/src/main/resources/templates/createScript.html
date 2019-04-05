@@ -1,0 +1,63 @@
+{{ > header}}
+
+	<form method="POST" action="http://localhost:8080/script/submit" class="ui fluid form">
+	
+		<fieldset>
+		<legend>Ajouter un script</legend>
+		
+		<div class="field">
+			<label for="title">Nom : </label>
+				<input type="text" name="title" id="title" />
+		</div>
+		
+		<div class="field">
+			<label for="description">Description : </label>
+				<input type="text" name="description" id="description" />
+		</div>
+		
+		<div class="field">
+			<label for="content">Contenu : </label>
+				<textarea name="content" id="content"></textarea>
+		</div>
+		
+		<div class="field">
+			<label for="creationDate">Date de création : </label>
+				<input type="text" name="creationDate" id="creationDate" />
+		</div>
+		
+		
+		<div class="field">
+			<label for="category">Categorie : </label>
+			
+				<select name="category" id="category">
+					{{#categs}}
+						<option value="{{id}}">{{name}}</option>
+					{{/categs}}
+				</select>
+		</div>
+		
+		
+		
+		<div class="field">
+			<label for="language">Langage : </label>
+			
+				<select name="language" id="language">
+					{{#langs}}
+						<option value="{{id}}">{{name}}</option>
+					{{/langs}}
+				</select>
+		</div>
+		
+		
+		<div class="ui segment">
+			<input type="submit" class="ui positive button" value="Ajouter" />
+			
+			<button class="ui negative button"><a href="http://localhost:8080/index">Annuler</a></button>
+		</div>
+		
+		
+		</fieldset>
+	
+	</form>
+
+{{ > footer}}

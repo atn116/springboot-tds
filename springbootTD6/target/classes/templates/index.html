@@ -1,0 +1,67 @@
+{{ > header}}
+
+	<div class="ui message">
+  <div class="header">
+   Bonjour {{activeUser.login}} !
+   </div>
+  </div>
+	
+	<table class="ui fluid large single-line table" id="myTable">
+		<thead>
+		<div class="ui search">
+  <div class="ui icon input">
+    <input type="text" name="search" id="search" placeholder="Rechercher un script..." oninput="myFunction()"/>
+    <i class="search icon"></i>
+  </div>
+  <div class="results"></div>
+</div>
+		<tr>
+			<th>Nom</th>
+			<th>Description</th>
+			<th>Date de création</th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+	
+		<tbody>
+			{{#activeUser.scripts}}
+				<tr>
+					<td>{{title}}</td>
+					<td>{{description}}</td>
+					<td>{{creationDate}}</td>
+					<td><a href="http://localhost:8080/script/{{id}}">Modifier</a></td>
+					<td><a onclick="return confirm('Voulez-vous vraiment supprimer ce script ?');" href="http://localhost:8080/script/{{id}}/delete">Supprimer</a></td>
+				</tr>
+			{{/activeUser.scripts}}
+		</tbody>
+	</table>
+	
+	<div><a href="http://localhost:8080/script/new" style="font-weight:bold ;">Ajouter un script</a></div>
+	<div style="padding-top:50px"><a href="http://localhost:8080/logout" style="font-weight:bold ;color:red">Se déconnecter</a></div>
+	
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  for (i = 0; i < tr.length; i++) {
+    td0 = tr[i].getElementsByTagName("td")[0];
+    td1 = tr[i].getElementsByTagName("td")[1];
+    if (td0||td1) {
+      txtValue0 = td0.textContent || td.innerText;
+      txtValue1 = td1.textContent || td.innerText;
+      if (txtValue0.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+     	}
+	 }
+	}
+}
+</script>
+
+{{ > footer}}
