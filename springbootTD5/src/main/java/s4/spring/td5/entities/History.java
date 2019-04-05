@@ -18,8 +18,8 @@ public class History {
 	private Date date;
 	private String content;
 	private String comment;
-	/*@ManyToOne(cascade=CascadeType.ALL)
-	private Script script;*/
+	@ManyToOne
+	private Script script;
 
 	public int getId() {
 		return id;
@@ -45,9 +45,9 @@ public class History {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	/*public Script getScript() {
+	public Script getScript() {
 		return script;
-	}*/
+	}
 	
 	
 }

@@ -27,8 +27,8 @@ public class Script {
 	private Language language;
 	@ManyToOne
 	private User user;
-	/*@OneToMany(mappedBy="script",cascade=CascadeType.ALL)
-	private List<History> history;*/
+	@OneToMany(mappedBy="script",cascade=CascadeType.ALL)
+	private List<History> history;
 	@ManyToOne
 	private Category category;
 	
@@ -74,12 +74,12 @@ public class Script {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	/*public List<History> getHistory() {
+	public List<History> getHistory() {
 		return history;
 	}
 	public void setHistory(List<History> history) {
 		this.history = history;
-	}*/
+	}
 	public Category getCategory() {
 		return category;
 	}

@@ -1,6 +1,8 @@
 {{ > header}}
-
-	<form method="POST" action="http://localhost:8080/script/{id}" class="ui fluid form">
+	
+	
+	
+	<form method="POST" action="http://localhost:8080/script/{{id}}/submit" class="ui fluid form">
 	
 		<fieldset>
 		<legend>Modifier un script</legend>
@@ -20,16 +22,22 @@
 				<textarea name="content" id="content" value="{{script.content}}"></textarea>
 		</div>
 		
-		<div class="field">
+	<div class="field">
 			<label for="creationDate">Date de création : </label>
-				<input type="text" name="creationDate" id="creationDate" value="{{script.creationDate}}"/>
+				<input type="text" name="creationDate" id="creationDate" />
 		</div>
 		
-		
-		
-		
-		
-		
+			<div class="field">
+			<label for="category">Categorie : </label>
+			
+				<select name="Category" id="category">
+				
+					<option value="{{selectedCategory.id}}" selected>{{selectedCategory.name}}</option>
+					{{#categs}}
+						<option value="{{id}}">{{name}}</option>
+					{{/categs}}
+				</select>
+		</div>
 		
 		
 		<div class="field">
@@ -44,13 +52,14 @@
 				</select>
 		</div>
 		
+		
 	
 		
 		
 		<div class="ui segment">
 			<input type="submit" class="ui positive button" value="Modifier" />
 			
-			<button class="ui negative button"><a href="http://localhost:8080/index">Annuler</a></button>
+			<a href="http://localhost:8080/index" style="color:red">Annuler</a>
 		</div>
 		
 		

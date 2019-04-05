@@ -36,7 +36,8 @@ public class ScriptController {
 	@Autowired
 	private CategoryRepository categRepo;
 	/*
-	 * @Autowired private HistoryRepository historyRepo;
+	 * @Autowired 
+	 * private HistoryRepository historyRepo;
 	 */
 	@Autowired
 	private LanguageRepository languageRepo;
@@ -69,15 +70,17 @@ public class ScriptController {
 	@ResponseBody
 	public String create() {
 		User user = new User();
-		user.setEmail("test5@insert.net");
-		user.setLogin("abc");
-		user.setPassword("def");
-		user.setIdentity("Test");
+		user.setEmail("cedric.pierre-auguste@outlook.com");
+		user.setLogin("cpa");
+		user.setPassword("atn");
+		user.setIdentity("Cédric Pierre-Auguste");
 		userRepo.save(user);
-		User root = new User();
-		root.setLogin("root");
-		root.setIdentity("Root");
-		userRepo.save(root);
+		User user2 = new User();
+		user2.setLogin("sovanL");
+		user2.setIdentity("Sovanarit Long");
+		user2.setPassword("1903");
+		userRepo.save(user2);
+		
 		Language lang = new Language();
 		lang.setName("PHP");
 		languageRepo.save(lang);
@@ -85,30 +88,29 @@ public class ScriptController {
 		Language lang2 = new Language();
 		lang2.setName("Java");
 		languageRepo.save(lang2);
+		
+		Language lang3 = new Language();
+		lang3.setName("C#");
+		languageRepo.save(lang3);
 
 		Category categ = new Category();
-		categ.setName("Test_Script");
+		categ.setName("Script de tests unitaires");
 		categRepo.save(categ);
 
 		Category categ2 = new Category();
-		categ2.setName("testScript2");
+		categ2.setName("Script de base de données");
 		categRepo.save(categ2);
-		return user.toString() + " , " + root.toString()+ lang.toString() + " , " + lang2.toString() + categ.toString() + " , " + categ2.toString()+ " ajoutés dans la bdd.";
-	}
-	
-/*	@RequestMapping("/create/category")
-	@ResponseBody
-	public String addCategory() {
-		if(activeUser!=null) {
-			return "createCategory";
-		}
 		
-		return "../../login";
+		Category categ3 = new Category();
+		categ3.setName("Script web");
+		categRepo.save(categ3);
+		
+		return user.toString() + " , " + user2.toString()+ lang.toString() + " , " + lang2.toString() + " , " + lang3.toString()
+		+ categ.toString() + " , " + categ2.toString()+ " , " + categ3.toString()+ " ont été ajoutés dans la base de données.";
+	}
 
-	}*/
 
-
-	@PostMapping("loginPost")
+	@PostMapping("/loginPost")
 	public RedirectView loginPost(HttpServletRequest request) {
 		List<User> users = userRepo.findAll();
 		User conn = new User();
@@ -131,15 +133,15 @@ public class ScriptController {
 				return new RedirectView("index");
 			}
 		}
-		return new RedirectView("../login");
+		return new RedirectView("login");
 	}
 
 	@RequestMapping("/script/new")
 	public String createScript(ModelMap model) {
 		if (activeUser != null) {
 			List<Language> langs = languageRepo.findAll();
-			List<Category> categs = categRepo.findAll();
 			model.addAttribute("langs", langs);
+			List<Category> categs = categRepo.findAll();
 			model.addAttribute("categs", categs);
 			return "createScript";
 		}
@@ -149,8 +151,8 @@ public class ScriptController {
 	@RequestMapping("/script/{id}/delete")
 	public RedirectView deleteScript(@PathVariable("id") int id, ModelMap model) {
 		if (activeUser != null) {
-			activeUser.getScripts().remove(scriptRepo.getOne(id));
 			scriptRepo.deleteById(id);
+			activeUser.getScripts().remove(scriptRepo.getOne(id));
 			return new RedirectView("../../index");
 		}
 
@@ -161,7 +163,6 @@ public class ScriptController {
 	public RedirectView addScript(Script s) {
 		if (activeUser != null) {
 			s.setUser(activeUser);
-			// userRepo.save(activeUser);
 			scriptRepo.saveAndFlush(s);
 			activeUser.getScripts().add(s);
 
@@ -169,8 +170,29 @@ public class ScriptController {
 		}
 		return new RedirectView("../login");
 	}
+	
+	@PostMapping("/script/{id}/submit")
+	public RedirectView modifScript(@PathVariable("id") int id,Script s) {
+		if (activeUser != null) {
+			
+			scriptRepo.deleteById(id);
+			activeUser.getScripts().remove(scriptRepo.getOne(id));
+			s.setId(id);
+			s.setUser(activeUser);
+			scriptRepo.saveAndFlush(s);
+			activeUser.getScripts().add(s);
+			
+			
+			
+		
+			return new RedirectView("../../index");
+		}
+		return new RedirectView("../../login");
+	}
+	
 
 	@RequestMapping("/script/{id}")
+	@GetMapping
 	public String scriptEdit(@PathVariable("id") int id, ModelMap model) {
 
 		if (activeUser != null) {
@@ -178,8 +200,11 @@ public class ScriptController {
 			Optional<Script> s = scriptRepo.findById(id);
 
 			if (s.isPresent()) {
+				
 				Script script = s.get();
+				
 				if (script.getUser().getId() == activeUser.getId()) {
+					
 					model.addAttribute("script", script);
 					List<Category> categs = categRepo.findAll();
 					model.addAttribute("categs", categs);
@@ -188,21 +213,16 @@ public class ScriptController {
 					Category selectedCategory = script.getCategory();
 					categs.remove(selectedCategory);
 					model.addAttribute("selectedCategory", selectedCategory);
-
 					Language selectedLang = script.getLanguage();
-					
 					model.addAttribute("selectedLang", selectedLang);
-
-					
-					
 
 					return "editScript";
 				}
 			}
 			model.addAttribute("activeUser", activeUser);
-			return "../index";
-		}
-		return "../login";
+			return "index";
+		}else
+		return "login";
 
 	}
 }
