@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<title>Modifier la organization la</title>
+</head>
+<body>
+
+<div class="ui container">
+<form class="ui form" method="post" action="createOrga">
+  <div class="field">
+    <label>Name</label>
+    <input name="name" placeholder="Name" type="text" value="{{orga.name}}">
+  </div>
+  <div class="field">
+    <label>Domain</label>
+    <input name="domain" placeholder="Domain" type="text" value="{{orga.domain}}">
+  </div>
+  <div class="field">
+  	<label>Alliases</label>
+    <input name="aliases" placeholder="Alliases" type="text" value="{{orga.aliases}}">
+  </div>
+  <div>
+      <label>Ville</label>
+    <input name="ville" placeholder="Ville" type="text" value="{{orga.ville}}">
+  </div>
+  
+  <button class="ui button" type="submit">Envoyer</button>
+  <input type="hidden" name="id" value="{{orga.id}}">
+</form>
+</div>
+
+
+
+
+
+
+</body>
+</html>

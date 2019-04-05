@@ -1,0 +1,16 @@
+{{>/vueJs/header}}
+<h1>Test vue js</h1>
+
+<%message%>
+
+<v-btn @click="update"color="success">Modifier</v-btn>
+<v-btn @click="testAjax"color="blue">TestAjax</v-btn>
+
+<input :value=inputValue placeholder="valeur" type="text">
+<v-btn @click="testAjax" color="blue">Test Ajax</v-btn>
+	<v-alert
+	:value=alertVisible
+	type="success">
+	<%ajaxMessage%>
+
+{{>/vueJs/footer}}

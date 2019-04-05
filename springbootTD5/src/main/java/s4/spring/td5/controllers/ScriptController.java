@@ -190,7 +190,7 @@ public class ScriptController {
 					model.addAttribute("selectedCategory", selectedCategory);
 
 					Language selectedLang = script.getLanguage();
-					langs.remove(selectedLang);
+					
 					model.addAttribute("selectedLang", selectedLang);
 
 					

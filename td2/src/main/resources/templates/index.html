@@ -1,0 +1,9 @@
+{{> /header}}
+
+<m-confirm-button :width="dlgWidth" :title="dlgTitle" :message="dlgMessage" @cancellation="cancel" :cancelcaption="cancelCaption" @validation="validate" :validatecaption="validateCaption"  >Test
+</m-confirm-button>
+
+<m-data-table :items="items" :headers="headers">
+</m-data-table>
+
+{{> /footer}}
