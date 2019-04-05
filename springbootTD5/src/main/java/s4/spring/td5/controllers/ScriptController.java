@@ -1,6 +1,8 @@
 package s4.spring.td5.controllers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import s4.spring.td5.entities.Category;
+import s4.spring.td5.entities.History;
 import s4.spring.td5.entities.Language;
 import s4.spring.td5.entities.Script;
 import s4.spring.td5.entities.User;
@@ -35,10 +38,10 @@ public class ScriptController {
 	private ScriptRepository scriptRepo;
 	@Autowired
 	private CategoryRepository categRepo;
-	/*
-	 * @Autowired 
-	 * private HistoryRepository historyRepo;
-	 */
+	
+	  @Autowired 
+	  private HistoryRepository historyRepo;
+	 
 	@Autowired
 	private LanguageRepository languageRepo;
 	@Autowired
@@ -174,7 +177,11 @@ public class ScriptController {
 	@PostMapping("/script/{id}/submit")
 	public RedirectView modifScript(@PathVariable("id") int id,Script s) {
 		if (activeUser != null) {
-			
+			History h = new History();
+			h.setDate(new Date());
+			h.setComment("Modification du script "+id);
+			h.setContent("Modification");
+			historyRepo.saveAndFlush(h);
 			scriptRepo.deleteById(id);
 			activeUser.getScripts().remove(scriptRepo.getOne(id));
 			s.setId(id);
